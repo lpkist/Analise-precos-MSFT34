@@ -21,5 +21,5 @@ jobs:
         R -e 'install.packages("rvest")'
     # Run R script
     - name: Hello
-      run: Rscript hello.R
+      run: Rscript R/hello.R
       
