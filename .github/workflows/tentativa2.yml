@@ -17,8 +17,7 @@ jobs:
     - name: Install packages
       run: |
         R -e 'install.packages("tidyverse")'
-        R -e 'install.packages("janitor")'
-        R -e 'install.packages("rvest")'
+        R -e 'install.packages("yfR")'
     # Run R script
     - name: Hello
       run: Rscript R/hello.R
