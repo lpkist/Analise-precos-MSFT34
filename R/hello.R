@@ -13,5 +13,4 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
-x <- rnorm(1:10)
-save(x, file = paste0("a", make.names(Sys.time()), ".Rda"))
+print("oi")
