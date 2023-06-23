@@ -1,7 +1,7 @@
 # Controls when the action will run.
 on:
   schedule:
-    - cron:  '15 * * * *'
+    - cron:  '* * * * *'
 
 jobs: 
   autoscrape:
@@ -22,3 +22,6 @@ jobs:
     # Run R script
     - name: Hello
       run: Rscript R/modelo.R
+    
+    - name: prevs
+      run: Rscript R/escreve_csv.R
