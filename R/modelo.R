@@ -25,4 +25,4 @@ prev$index <- sequencia
 colnames(prev) <- c("Retorno", "Desvio padrão", "idx")
 modelo <- ugarchfit(spec, dados$ret_adjusted, solver = 'hybrid')@fit
 print(prev)
-
+recuperou_o_objeto <- "Se você está vendo isso, significa que deu certo"
