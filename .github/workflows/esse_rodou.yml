@@ -21,15 +21,3 @@ jobs:
     # Run R script
     - name: Hello
       run: Rscript R/hello.R
-      
-    -  name: Send mail
-       uses: dawidd6/action-send-mail@v3
-       with:
-         server_address: smtp.gmail.com
-         server_port: 587
-         username: ${{ secrets.USUARIO }}
-         password: ${{ secrets.SENHA }}
-         from: ${{ secrets.USUARIO }}
-         to: l236202@dac.unicamp.br
-         subject: Trabalho de Séries
-         body: Se você está recebendo isso significa que GANHAMO PORRAAAA
