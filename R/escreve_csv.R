@@ -28,5 +28,4 @@ print(prev)
 
 prevs_feitas <- read_csv('previsao.csv')
 prevs <- rbind(prevs_feitas,prev)
-write_csv(prevs,paste0('previsao.csv'))   
-print(recuperou_o_objeto)
+write.table(prevs,"previsao.csv")
