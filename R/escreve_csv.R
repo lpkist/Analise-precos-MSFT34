@@ -22,7 +22,7 @@ rownames(prev) <- NULL
 prev <- as.data.frame(prev)
 sequencia <- seq(from = max(dados$date)+1, by = 1, length.out = 5)
 prev$index <- sequencia
-colnames(prev) <- c("Retorno", "Desvio padrão", "idx")
+colnames(prev) <- c("previsao","desvio_padrao","data")
 modelo <- ugarchfit(spec, dados$ret_adjusted, solver = 'hybrid')@fit
 print(prev)
 
