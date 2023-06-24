@@ -24,7 +24,7 @@ jobs:
           R -e 'install.packages("gmailr")'
 
       - name: Run R script
-        run: Rscript escreve_csv.R
+        run: Rscript R/escreve_csv.R
 
       - name: Enviar e-mail
         working-directory: .github/workflows
