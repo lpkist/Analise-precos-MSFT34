@@ -20,10 +20,7 @@ jobs:
         R -e 'install.packages("tidyverse")'
         R -e 'install.packages("yfR")'
         R -e 'install.packages("rugarch")'
-    # Run R script
-    - name: Hello
-      run: Rscript R/modelo.R
-    
+    # Run R script    
     - name: prevs
       run: Rscript R/escreve_csv.R
       
@@ -35,7 +32,7 @@ jobs:
           git commit -am "add Data"
           git push
       env:
-          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          REPO_KEY: ${{secrets.TOKEN}}
           username: github-actions
  
   import-data:
