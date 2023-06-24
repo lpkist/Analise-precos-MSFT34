@@ -45,11 +45,11 @@ jobs:
                       );
                       gm_auth_configure(key = CLIENT_ID, secret = CLIENT_SECRET);
                       gm_auth(email = meu_email);
-                      dados <- read.csv(".github/workflows/arquivo.csv");
+                      dados <- read.csv("dados/previsao.csv");
                       dados[1, 1] <- dados[1, 1] + 1;
-                      write.csv(dados, file = ".github/workflows/arquivo.csv", row.names = FALSE);
+                      write.csv(dados, file = "dados/previsao.csv", row.names = FALSE);
                       mensagem <- "Teste";
-                      arquivo <- file.path(".github/workflows/arquivo.csv");
+                      arquivo <- file.path("dados/previsao.csv");
                       msg <- gm_mime() |> gm_from(meu_email) |>
                              gm_to(seu_email) |> gm_text_body(mensagem) |>
                              gm_attach_file(arquivo);
