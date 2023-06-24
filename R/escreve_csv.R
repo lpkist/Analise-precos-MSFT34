@@ -28,4 +28,4 @@ print(prev)
 
 prevs_feitas <- read_csv('previsao.csv')
 prevs <- rbind(prevs_feitas,prev)
-write.table(prevs, "previsao.csv")
+write_csv(prevs, "previsao.csv")
