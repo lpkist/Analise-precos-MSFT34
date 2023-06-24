@@ -26,11 +26,11 @@ jobs:
     - name: prevs
       run: Rscript R/escreve_csv.R
       
-    - name: Commit
+    - name: Commit files
       run: |
           git config --local user.name actions-user
           git config --local user.email "actions@github.com"
-          git add dados/*
+          git add data/*
           git commit -am "GH ACTION Headlines $(date)"
           git push origin master
       env:
