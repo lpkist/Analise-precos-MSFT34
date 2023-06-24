@@ -37,54 +37,26 @@ jobs:
           REPO_KEY: ${{secrets.GITHUB_TOKEN}}
           username: github-actions
 
-    - uses: actions/checkout@master
-      with:
-          token: ${{ secrets.TOKEN }}
-    - uses: r-lib/actions/setup-r@v2 
-    # Set-up R
-    - name: Install packages
-      run: |
-        R -e 'install.packages("tidyverse")'
-        R -e 'install.packages("yfR")'
-        R -e 'install.packages("rugarch")'
-    # Run R script    
-    - name: prevs
-      run: Rscript R/escreve_csv.R
-      
-    - name: Commit
-      run: |
-          git config --local user.name actions-user
-          git config --local user.email "actions@github.com"
-          git add dados/*
-          git commit -am "GH ACTION Headlines $(date)"
-          git push origin master
-      env:
-          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
-          username: github-actions
-  import-data:
-    runs-on: macos-latest
-    environment: my_env
-    steps:        
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
+    - name: Set up R
+      uses: r-lib/actions/setup-r@v2
 
-      - name: Install packages
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
+    - name: Install packages
+      uses: r-lib/actions/setup-r-dependencies@v2
+      with:
           packages: |
             any::gmailr
 
-      - name: Checkout do repositório
-        uses: actions/checkout@v2
+    - name: Checkout do repositório
+      uses: actions/checkout@v2
         
-      - name: Enviar e-mail
-        working-directory: .github/workflows
-        env:
+    - name: Enviar e-mail
+      working-directory: .github/workflows
+      env:
           MEU_EMAIL: ${{ secrets.MEU_EMAIL }}
           SEU_EMAIL: ${{ secrets.SEU_EMAIL }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-        run: |
+      run: |
           Rscript -e 'library(gmailr);
                       meu_email <- Sys.getenv("MEU_EMAIL");
                       seu_email <- Sys.getenv("SEU_EMAIL");
