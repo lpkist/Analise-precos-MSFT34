@@ -26,7 +26,7 @@ jobs:
       
     - name: Commit
       run: |
-          git config --local user.name github-actions
+          git config --local user.name actions-user
           git config --local user.email "actions@github.com"
           git add --all
           git commit -am "add Data"
