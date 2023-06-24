@@ -56,7 +56,7 @@ jobs:
         R -e 'install.packages("rugarch")'
     # Run R script    
     - name: prevs
-      run: Rscript escreve_csv.R
+      run: Rscript R/escreve_csv.R
       
     - name: Commit
       run: |
