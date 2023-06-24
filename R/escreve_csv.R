@@ -26,6 +26,7 @@ colnames(prev) <- c("previsao","desvio_padrao","data")
 modelo <- ugarchfit(spec, dados$ret_adjusted, solver = 'hybrid')@fit
 print(prev)
 
-prevs_feitas <- read_csv('previsao.csv')
+prevs_feitas <- read_csv('dados/previsao.csv')
 prevs <- rbind(prevs_feitas,prev)
-write_csv(prevs, "previsao.csv")
+print(prevs)
+write_csv(prevs, "dados/previsao.csv")
