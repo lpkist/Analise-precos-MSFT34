@@ -32,7 +32,7 @@ jobs:
           git commit -am "GH ACTION Headlines $(date)"
           git push origin master
       env:
-          REPO_KEY: ${{secrets.TOKEN}}
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
           username: github-actions
  
   import-data:
