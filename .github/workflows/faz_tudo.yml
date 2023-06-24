@@ -4,42 +4,9 @@ on:
 #    - cron:  '0 * * * *'
   workflow_dispatch
   
-#jobs: 
-#  autoscrape:
-    # The type of runner that the job will run on
-#   runs-on: macos-latest
-
-    # Load repo and install R
-#   steps:
-#    - uses: actions/checkout@master
-#      with:
-#          token: ${{ secrets.TOKEN }}
-#    - uses: r-lib/actions/setup-r@v2 
-
-    # Set-up R
-#    - name: Install packages
-#      run: |
-#        R -e 'install.packages("tidyverse")'
-#        R -e 'install.packages("yfR")'
-#        R -e 'install.packages("rugarch")'
-#    # Run R script    
-#    - name: prevs
-#      run: Rscript R/escreve_csv.R
-#      
-#    - name: Commit
-#      run: |
-#          git config --local user.name actions-user
-#          git config --local user.email "actions@github.com"
-#          git add dados/*
-#          git commit -am "GH ACTION Headlines $(date)"
-#          git push origin master
-#      env:
-#          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
-#          username: github-actions
-
-jobs:
+jobs: 
   autoscrape:
-    # The type of runner that the job will run on
+   # The type of runner that the job will run on
    runs-on: macos-latest
 
     # Load repo and install R
@@ -48,6 +15,7 @@ jobs:
       with:
           token: ${{ secrets.TOKEN }}
     - uses: r-lib/actions/setup-r@v2 
+
     # Set-up R
     - name: Install packages
       run: |
@@ -68,6 +36,7 @@ jobs:
       env:
           REPO_KEY: ${{secrets.GITHUB_TOKEN}}
           username: github-actions
+
   import-data:
     runs-on: macos-latest
     environment: my_env
