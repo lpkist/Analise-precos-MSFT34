@@ -1,0 +1,107 @@
+# Controls when the action will run.
+on:
+#  schedule:
+#    - cron:  '0 * * * *'
+  workflow_dispatch
+  
+jobs: 
+  autoscrape:
+    # The type of runner that the job will run on
+   runs-on: macos-latest
+
+    # Load repo and install R
+   steps:
+    - uses: actions/checkout@master
+      with:
+          token: ${{ secrets.TOKEN }}
+    - uses: r-lib/actions/setup-r@v2 
+
+    # Set-up R
+    - name: Install packages
+      run: |
+        R -e 'install.packages("tidyverse")'
+        R -e 'install.packages("yfR")'
+        R -e 'install.packages("rugarch")'
+    # Run R script    
+    - name: prevs
+      run: Rscript R/escreve_csv.R
+      
+    - name: Commit
+      run: |
+          git config --local user.name actions-user
+          git config --local user.email "actions@github.com"
+          git add dados/*
+          git commit -am "GH ACTION Headlines $(date)"
+          git push origin master
+      env:
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          username: github-actions
+
+    - uses: actions/checkout@master
+      with:
+          token: ${{ secrets.TOKEN }}
+    - uses: r-lib/actions/setup-r@v2 
+    # Set-up R
+    - name: Install packages
+      run: |
+        R -e 'install.packages("tidyverse")'
+        R -e 'install.packages("yfR")'
+        R -e 'install.packages("rugarch")'
+    # Run R script    
+    - name: prevs
+      run: Rscript R/escreve_csv.R
+      
+    - name: Commit
+      run: |
+          git config --local user.name actions-user
+          git config --local user.email "actions@github.com"
+          git add dados/*
+          git commit -am "GH ACTION Headlines $(date)"
+          git push origin master
+      env:
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          username: github-actions
+  import-data:
+    runs-on: macos-latest
+    environment: my_env
+    steps:        
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Install packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gmailr
+
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+        
+      - name: Enviar e-mail
+        working-directory: .github/workflows
+        env:
+          MEU_EMAIL: ${{ secrets.MEU_EMAIL }}
+          SEU_EMAIL: ${{ secrets.SEU_EMAIL }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        run: |
+          Rscript -e 'library(gmailr);
+                      meu_email <- Sys.getenv("MEU_EMAIL");
+                      seu_email <- Sys.getenv("SEU_EMAIL");
+                      CLIENT_ID <- Sys.getenv("CLIENT_ID");
+                      CLIENT_SECRET <- Sys.getenv("CLIENT_SECRET");
+                      options(
+                        gargle_oauth_cache = ".secret",
+                        gargle_oauth_email = meu_email
+                      );
+                      gm_auth_configure(key = CLIENT_ID, secret = CLIENT_SECRET);
+                      gm_auth(email = meu_email);
+                      dados = read.csv("arquivo.csv");
+                      dados[1,1] = dados[1,1] + 1;
+                      write.csv(dados, file = "arquivo.csv", row.names = FALSE);
+                      mensagem <- "Teste";
+                      arquivo <- file.path("arquivo.csv");
+                      msg <- gm_mime() |> gm_from(meu_email) |>
+                             gm_to(seu_email) |> gm_text_body(mensagem) |>
+                             gm_attach_file(arquivo);
+                      gm_send_message(msg);'
