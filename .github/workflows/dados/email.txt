@@ -1,4 +1,11 @@
-Mensagem1
-Mensagem2
-Mensagem3
-Mensagem4
+Hoje é segunda-feira. Uma nova semana se inicia e, com ela, novas oportunidades aparecem! Seguem as previsões para hoje: retorno: XXXX, VaR: XXXXX, ES: XXXXXX. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!
+Hoje é terça-feira. Inspirado pelos resultados de ontem, hoje vai ser um dia de muito sucesso no mercado de ações, desde que você siga nossas predições! Seguem as previsões para hoje: retorno: XXXX, VaR: XXXXX, ES: XXXXXX. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!
+Hoje é quarta-feira. A semana já chegou à metade, é hora de dar o seu melhor para cumprir todas as metas que você possui! Para ajudar, seguem as previsões para hoje: retorno: XXXX, VaR: XXXXX, ES: XXXXXX. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!
+Hoje é quinta-feira. A semana está quase terminando, então é dia de trabalhar com muita energia e impressionar o seu chefe com seus resultados! Para te ajudar, seguem as previsões para hoje: retorno: XXXX, VaR: XXXXX, ES: XXXXXX. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!
+Hoje é sexta-feira. Para fechar a semana com chave de ouro, seguem as previsões para hoje: retorno: XXXX, VaR: XXXXX, ES: XXXXXX. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!
+Hoje é sábado. Como a bolsa de valores não abre hoje, não teremos previsões! Aproveite o final de semana!!
+Hoje é domingo. Como a bolsa de valores não abre hoje, não teremos previsões! Entretanto, amanhã é dia de trabalhar e teremos mais previsões!!!
+
+
+
+
