@@ -48,7 +48,7 @@ rownames(prev) <- NULL
 prev <- as.data.frame(prev)
 sequencia <- Sys.Date()
 prev$index <- sequencia
-colnames(prev) <- c("Retorno", "VaR (1%)", "SE (1%)","Data")
+colnames(prev) <- c("Retorno", "VaR", "SE","Data")
 
 prevs_feitas <- read_csv('dados/previsao.csv')
 prevs <- rbind(prevs_feitas,prev)
