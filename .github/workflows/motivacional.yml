@@ -30,17 +30,17 @@ jobs:
       - name: Run R script
         run: Rscript R/escreve_csv.R
 
-      - name: Commit files
+      - name: Commit
         run: |
           git config --local user.name actions-user
           git config --local user.email "actions@github.com"
-          git add *
+          git add dados/*
           git commit -am "GH ACTION Headlines $(date)"
-          git pull origin master
           git push origin master
         env:
           REPO_KEY: ${{ secrets.GITHUB_TOKEN }}
           username: github-actions
+        if: "!contains(['Saturday', 'Sunday'], formatDateTime(now(), 'dddd'))"
 
       - name: Enviar e-mail
         working-directory: .github/workflows
