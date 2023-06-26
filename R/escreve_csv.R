@@ -7,7 +7,9 @@ get_day <- function() {
                         return(dia_da_semana)
                       }
 dia_da_semana <- get_day()
-if(dia_da_semana %in% c(0,2){}else{
+if(dia_da_semana %in% c(0,2)){
+ a<-0 
+}else{
 get_data = function(tickers = "MSFT34.SA", first_date = "2013-01-01",
                     last_date = (Sys.Date())){
   data = yf_get(tickers, first_date, last_date)
