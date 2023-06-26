@@ -54,7 +54,7 @@ prevs_feitas <- read_csv('dados/previsao.csv')
 if(dia_da_semana != 2 && dia_da_semana != 7){
 prevs <- rbind(prevs_feitas,prev)
 } else{
-prevs <- prev
+prevs <- prevs_feitas
 }
 
 write_csv(prevs, "dados/previsao.csv")
