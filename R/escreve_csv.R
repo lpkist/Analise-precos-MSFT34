@@ -53,6 +53,6 @@ colnames(prev) <- c("Retorno", "VaR", "SE","Data")
 prevs_feitas <- read_csv('dados/previsao.csv')
 prevs <- rbind(prevs_feitas,prev)
 
-if(dia_da_semana != 1 && dia_da_semana != 7){
+if(dia_da_semana != 2 && dia_da_semana != 7){
   write_csv(prevs, "dados/previsao.csv")
 }
