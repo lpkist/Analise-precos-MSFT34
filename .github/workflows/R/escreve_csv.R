@@ -48,10 +48,10 @@ rownames(prev) <- NULL
 prev <- as.data.frame(prev)
 sequencia <- Sys.Date()
 prev$index <- sequencia
-colnames(prev) <- c("Retorno", "VaR (1%)", "SE (1%)","Data")
+colnames(prev) <- c("Retorno", "VaR", "SE","Data")
 
 prevs_feitas <- read_csv('dados/previsao.csv')
-prevs <- ifelse(dia_da_semana %in% c(0,1), prevs_feitas,rbind(prevs_feitas,prev))
+prevs <- rbind(prevs_feitas,prev)
 
 print(prevs)
 write_csv(prevs, "dados/previsao.csv")
