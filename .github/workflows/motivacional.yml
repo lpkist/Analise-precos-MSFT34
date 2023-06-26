@@ -1,13 +1,15 @@
 name: Enviar E-mail Diariamente
 
 on:
-  workflow_dispatch
- # schedule:
-  # - cron:  '0 * * * *'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
 jobs:
   import-data:
     runs-on: macos-latest
-    environment: my_env
+    environment:
+      name: my_env
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v2
@@ -37,9 +39,8 @@ jobs:
           git pull origin master
           git push origin master
         env:
-          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          REPO_KEY: ${{ secrets.GITHUB_TOKEN }}
           username: github-actions
-
 
       - name: Enviar e-mail
         working-directory: .github/workflows
@@ -51,49 +52,48 @@ jobs:
         run: |
           Rscript -e 'library(gmailr);
                       library(glue);                      
-                      get_day = function(){
-                      data = as.Date(Sys.time());
-                      dia_da_semana <- (as.numeric(format(data, "%u")) %% 7) + 1;
-                      return(dia_da_semana);
-                      };
-                      get_mensagem = function(prev){
-                      dia = get_day();
-                      mensagemDom <- glue(.trim = FALSE, .open = "<", .close = ">",
-                                                'Hoje é domingo. Como a bolsa de valores não abre hoje, não teremos previsões! Entretanto, amanhã é dia de trabalhar e teremos mais previsões!!!');
-                      mensagemSeg <- glue(.trim = FALSE, .open = "<", .close = ">",
-                                                'Hoje é segunda-feira. Uma nova semana se inicia e, com ela, novas oportunidades aparecem! Seguem as previsões para hoje: retorno: <prev[1]>, VaR: <prev[2]>, ES: <prev[3]>. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!');
-                      mensagemTer <- glue(.trim = FALSE, .open = "<", .close = ">",
-                                                'Hoje é terça-feira. Inspirado pelos resultados de ontem, hoje vai ser um dia de muito sucesso no mercado de ações, desde que você siga nossas predições! Seguem as previsões para hoje: retorno: <prev[1]>, VaR: <prev[2]>, ES: <prev[3]>. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!');
-                      mensagemQua <- glue(.trim = FALSE, .open = "<", .close = ">",
-                                                'Hoje é quarta-feira. A semana já chegou à metade, é hora de dar o seu melhor para cumprir todas as metas que você possui! Para ajudar, seguem as previsões para hoje: retorno: <prev[1]>, VaR: <prev[2]>, ES: <prev[3]>. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!');
-                      mensagemQui <- glue(.trim = FALSE, .open = "<", .close = ">",
-                                                'Hoje é quinta-feira. A semana está quase terminando, então é dia de trabalhar com muita energia e impressionar o seu chefe com seus resultados! Para te ajudar, seguem as previsões para hoje: retorno: <prev[1]>, VaR: <prev[2]>, ES: <prev[3]>. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!');
-                      mensagemSex <- glue(.trim = FALSE, .open = "<", .close = ">",
-                                                'Hoje é sexta-feira. Para fechar a semana com chave de ouro, seguem as previsões para hoje: retorno: <prev[1]>, VaR: <prev[2]>, ES: <prev[3]>. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!');
-                      mensagemSab <- glue(.trim = FALSE, .open = "<", .close = ">",
-                                                'Hoje é sábado. Como a bolsa de valores não abre hoje, não teremos previsões! Aproveite o final de semana!!');
-                      mensagens <- c(mensagemDom, mensagemSeg, mensagemTer, mensagemQua, mensagemQui, mensagemSex, mensagemSab);
-                      mensagem <- mensagens[dia];
-                      return(mensagem);
-                      };
-                      meu_email <- Sys.getenv("MEU_EMAIL");
-                      seu_email <- Sys.getenv("SEU_EMAIL");
-                      CLIENT_ID <- Sys.getenv("CLIENT_ID");
-                      CLIENT_SECRET <- Sys.getenv("CLIENT_SECRET");
+                      get_day <- function() {
+                        data <- as.Date(Sys.time())
+                        dia_da_semana <- (as.numeric(format(data, "%u")) %% 7) + 1
+                        return(dia_da_semana)
+                      }
+                      get_mensagem <- function(prev) {
+                        dia <- get_day()
+                        mensagemDom <- glue(.trim = FALSE, .open = "<", .close = ">",
+                                              "Hoje é domingo. Como a bolsa de valores não abre hoje, não teremos previsões! Entretanto, amanhã é dia de trabalhar e teremos mais previsões!!!")
+                        mensagemSeg <- glue(.trim = FALSE, .open = "<", .close = ">",
+                                              "Hoje é segunda-feira. Uma nova semana se inicia e, com ela, novas oportunidades aparecem! Seguem as previsões para hoje: retorno: <prev[1]>, VaR: <prev[2]>, ES: <prev[3]>. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!")
+                        mensagemTer <- glue(.trim = FALSE, .open = "<", .close = ">",
+                                              "Hoje é terça-feira. Inspirado pelos resultados de ontem, hoje vai ser um dia de muito sucesso no mercado de ações, desde que você siga nossas predições! Seguem as previsões para hoje: retorno: <prev[1]>, VaR: <prev[2]>, ES: <prev[3]>. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!")
+                        mensagemQua <- glue(.trim = FALSE, .open = "<", .close = ">",
+                                              "Hoje é quarta-feira. A semana já chegou à metade, é hora de dar o seu melhor para cumprir todas as metas que você possui! Para ajudar, seguem as previsões para hoje: retorno: <prev[1]>, VaR: <prev[2]>, ES: <prev[3]>. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!")
+                        mensagemQui <- glue(.trim = FALSE, .open = "<", .close = ">",
+                                              "Hoje é quinta-feira. A semana está quase terminando, então é dia de trabalhar com muita energia e impressionar o seu chefe com seus resultados! Para te ajudar, seguem as previsões para hoje: retorno: <prev[1]>, VaR: <prev[2]>, ES: <prev[3]>. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!")
+                        mensagemSex <- glue(.trim = FALSE, .open = "<", .close = ">",
+                                              "Hoje é sexta-feira. Para fechar a semana com chave de ouro, seguem as previsões para hoje: retorno: <prev[1]>, VaR: <prev[2]>, ES: <prev[3]>. Espero que com essas informações você consiga tomar boas decisões e ganhar muito dinheiro!")
+                        mensagemSab <- glue(.trim = FALSE, .open = "<", .close = ">",
+                                              "Hoje é sábado. Como a bolsa de valores não abre hoje, não teremos previsões! Aproveite o final de semana!!")
+                        mensagens <- c(mensagemDom, mensagemSeg, mensagemTer, mensagemQua, mensagemQui, mensagemSex, mensagemSab)
+                        mensagem <- mensagens[dia]
+                        return(mensagem)
+                      }
+                      meu_email <- Sys.getenv("MEU_EMAIL")
+                      seu_email <- Sys.getenv("SEU_EMAIL")
+                      CLIENT_ID <- Sys.getenv("CLIENT_ID")
+                      CLIENT_SECRET <- Sys.getenv("CLIENT_SECRET")
                       options(
                         gargle_oauth_cache = ".secret",
                         gargle_oauth_email = meu_email
-                      );
-                      gm_auth_configure(key = CLIENT_ID, secret = CLIENT_SECRET);
-                      gm_auth(email = meu_email);
-                      dados <- read.csv("../../dados/previsao.csv");
-                      dados[1, 1] <- dados[1, 1] + 1;
-                      write.csv(dados, file = "dados/previsao.csv", row.names = FALSE);
-                      print(dados[nrow(dados), c("retorno", "var", "se")]);
-                      mensagem <- get_mensagem(dados[nrow(dados), c("retorno", "var", "se")]);
-                      arquivo <- file.path("dados/previsao.csv");
+                      )
+                      gm_auth_configure(key = CLIENT_ID, secret = CLIENT_SECRET)
+                      gm_auth(email = meu_email)
+                      dados <- read.csv("../../dados/previsao.csv")
+                      dados[1, 1] <- dados[1, 1] + 1
+                      write.csv(dados, file = "dados/previsao.csv", row.names = FALSE)
+                      print(dados[nrow(dados), c("retorno", "var", "se")])
+                      mensagem <- get_mensagem(dados[nrow(dados), c("retorno", "var", "se")])
+                      arquivo <- file.path("dados/previsao.csv")
                       msg <- gm_mime() |> gm_from(meu_email) |>
                              gm_to(seu_email) |> gm_text_body(mensagem) |>
-                             gm_attach_file(arquivo);
-                      gm_send_message(msg);'
-        
+                             gm_attach_file(arquivo)
+                      gm_send_message(msg)'
