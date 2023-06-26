@@ -40,7 +40,7 @@ jobs:
         env:
           REPO_KEY: ${{ secrets.GITHUB_TOKEN }}
           username: github-actions
-        if: "!contains(['Saturday', 'Sunday'], formatDateTime(now(), 'dddd'))"
+          if: "!contains(['Saturday', 'Sunday'], formatDateTime(now(), 'dddd'))"
 
       - name: Enviar e-mail
         working-directory: .github/workflows
