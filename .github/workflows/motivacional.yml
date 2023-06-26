@@ -89,6 +89,7 @@ jobs:
                       dados <- read.csv("../../dados/previsao.csv");
                       dados[1, 1] <- dados[1, 1] + 1;
                       write.csv(dados, file = "dados/previsao.csv", row.names = FALSE);
+                      print(dados[nrow(dados), c("retorno", "var", "se")]);
                       mensagem <- get_mensagem(dados[nrow(dados), c("retorno", "var", "se")]);
                       arquivo <- file.path("dados/previsao.csv");
                       msg <- gm_mime() |> gm_from(meu_email) |>
