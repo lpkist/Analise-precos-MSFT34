@@ -50,7 +50,7 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         run: |
           Rscript -e 'library(gmailr);
-                      library(glue);                      
+                  -e  library(glue);                      
                       get_day = function(){;
                       data = as.Date(Sys.time());
                       dia_da_semana <- (as.numeric(format(data, "%u")) %% 7) + 1;
