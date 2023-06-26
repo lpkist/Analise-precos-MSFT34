@@ -10,21 +10,38 @@ get_data = function(tickers = "MSFT34.SA", first_date = "2013-01-01",
 }
 dados <- get_data()
 
-spec <- ugarchspec(mean.model = list(armaOrder = c(1,1),
+spec <- ugarchspec(mean.model = list(armaOrder = c(1,0),
                                     include.mean = FALSE),
-                  variance.model = list(model = 'sGARCH', garchOrder = c(1,1)),
+                  variance.model = list(model = 'sGARCH', garchOrder = c(1,2)),
                   distribution = "std")
 modelo <-  ugarchfit(spec, scale(dados$ret_adjusted, T, T), solver = 'hybrid')
 
-prev <- ugarchforecast(modelo, n.ahead = 5)
-prev <- cbind(prev@forecast$seriesFor, prev@forecast$sigmaFor)
+prev <- ugarchforecast(modelo, n.ahead = 1)
+alpha <- 0.01
+esp_t <- function(x, mu, sigma, shape) {
+  x*ddist(distribution = "std", 
+          y = x,
+          mu = mu, 
+          sigma = sigma, 
+          skew = 0,
+          shape = shape)
+}
+var <- qdist(distribution = "std", alpha,
+                  mu = prev@forecast[["seriesFor"]][1],
+                  sigma = sigma(prev)[1],
+                  skew = 0, shape = coef(modelo)["shape"])
+es <- integrate(esp_t, 
+                     -Inf, 
+                     var, 
+                     mu = prev@forecast[["seriesFor"]][1],
+                     sigma = sigma(prev)[1],
+                     shape = coef(modelo)["shape"])$value/alpha
+prev <- cbind(prev@forecast$seriesFor[1], var, es)
 rownames(prev) <- NULL
 prev <- as.data.frame(prev)
-sequencia <- seq(from = max(dados$date)+1, by = 1, length.out = 5)
+sequencia <- max(dados$date)+1
 prev$index <- sequencia
-colnames(prev) <- c("previsao","desvio_padrao","data")
-modelo <- ugarchfit(spec, dados$ret_adjusted, solver = 'hybrid')@fit
-print(prev)
+colnames(prev) <- c("retorno", "var", "se","data")
 
 prevs_feitas <- read_csv('dados/previsao.csv')
 prevs <- rbind(prevs_feitas,prev)
