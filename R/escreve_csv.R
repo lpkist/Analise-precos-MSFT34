@@ -51,7 +51,7 @@ prev$index <- sequencia
 colnames(prev) <- c("Retorno", "VaR", "SE","Data")
 
 prevs_feitas <- read_csv('dados/previsao.csv')
-if(dia_da_semana != 2 && dia_da_semana != 7){
+if(dia_da_semana != 1 && dia_da_semana != 7){
 prevs <- rbind(prevs_feitas,prev)
 } else{
 prevs <- prevs_feitas
