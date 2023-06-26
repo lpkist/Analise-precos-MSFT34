@@ -7,7 +7,7 @@ get_day <- function() {
                         return(dia_da_semana)
                       }
 dia_da_semana <- get_day()
-if(dia_da_semana %in% c(0,2){}else{
+
 get_data = function(tickers = "MSFT34.SA", first_date = "2013-01-01",
                     last_date = (Sys.Date())){
   data = yf_get(tickers, first_date, last_date)
@@ -51,7 +51,7 @@ prev$index <- sequencia
 colnames(prev) <- c("Retorno", "VaR (1%)", "SE (1%)","Data")
 
 prevs_feitas <- read_csv('dados/previsao.csv')
-prevs <- rbind(prevs_feitas,prev)
+prevs <- ifelse(dia_da_semana %in% c(0,2), prevs_feitas,rbind(prevs_feitas,prev))
+
 print(prevs)
 write_csv(prevs, "dados/previsao.csv")
-}
