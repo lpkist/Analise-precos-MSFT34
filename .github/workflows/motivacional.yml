@@ -82,9 +82,9 @@ jobs:
                       seu_email <- Sys.getenv("SEU_EMAIL");
                       CLIENT_ID <- Sys.getenv("CLIENT_ID");
                       CLIENT_SECRET <- Sys.getenv("CLIENT_SECRET");
-                      options(
-                        gargle_oauth_cache = ".secret",
-                        gargle_oauth_email = meu_email
+                      options(;
+                        gargle_oauth_cache = ".secret",;
+                        gargle_oauth_email = meu_email;
                       );
                       gm_auth_configure(key = CLIENT_ID, secret = CLIENT_SECRET);
                       gm_auth(email = meu_email);
