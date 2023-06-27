@@ -1,9 +1,8 @@
 name: Enviar E-mail Diariamente
 
 on:
-  workflow_dispatch
-  #schedule:
-   # - cron: '0 6 * * *'
+  schedule:
+    - cron: '0 6 * * *'
 
 jobs:
   import-data:
