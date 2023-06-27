@@ -87,7 +87,6 @@ jobs:
                       gm_auth_configure(key = CLIENT_ID, secret = CLIENT_SECRET)
                       gm_auth(email = meu_email)
                       dados <- read.csv("../../dados/previsao.csv")
-                      dados[1, 1] <- dados[1, 1] + 1
                       write.csv(dados, file = "dados/previsao.csv", row.names = FALSE)
                       print(dados[nrow(dados), c("Retorno", "VaR_0.01", "SE_0.01")])
                       mensagem <- get_mensagem(round(dados[nrow(dados), c("Retorno", "VaR_0.01", "SE_0.01")],5))
