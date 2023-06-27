@@ -17,11 +17,12 @@ get_data = function(tickers = "MSFT34.SA", first_date = "2013-01-01",
 }
 dados <- get_data()
 
-spec <- ugarchspec(mean.model = list(armaOrder = c(1,0),
-                                    include.mean = FALSE),
-                  variance.model = list(model = 'sGARCH', garchOrder = c(1,2)),
-                  distribution = "std")
-modelo <-  ugarchfit(spec, scale(dados$ret_adjusted, T, T), solver = 'hybrid')
+spec <-  ugarchspec(mean.model = list(armaOrder = c(1,0),
+                                          include.mean = TRUE),
+                        variance.model = list(model = 'sGARCH',
+                                              garchOrder = c(1,2)),
+                        distribution.model = "std")
+modelo <-  ugarchfit(spec, dados$ret_adjusted, solver = 'hybrid')
 
 prev <- ugarchforecast(modelo, n.ahead = 1)
 alpha <- 0.01
@@ -48,14 +49,10 @@ rownames(prev) <- NULL
 prev <- as.data.frame(prev)
 sequencia <- Sys.Date()
 prev$index <- sequencia
-colnames(prev) <- c("Retorno", "VaR_0.01", "SE_0.01","Data")
+colnames(prev) <- c("Retorno", "VaR", "SE","Data")
 
 prevs_feitas <- read_csv('dados/previsao.csv')
-if(dia_da_semana != 1 && dia_da_semana != 7){
 prevs <- rbind(prevs_feitas,prev)
-} else{
-prevs <- prevs_feitas
-}
 
+print(prevs)
 write_csv(prevs, "dados/previsao.csv")
-
