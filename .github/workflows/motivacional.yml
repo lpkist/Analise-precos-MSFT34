@@ -89,8 +89,8 @@ jobs:
                       dados <- read.csv("../../dados/previsao.csv")
                       dados[1, 1] <- dados[1, 1] + 1
                       write.csv(dados, file = "dados/previsao.csv", row.names = FALSE)
-                      print(dados[nrow(dados), c("Retorno", "VaR", "SE")])
-                      mensagem <- get_mensagem(round(dados[nrow(dados), c("Retorno", "VaR", "SE")],5))
+                      print(dados[nrow(dados), c("Retorno", "VaR_0.01", "SE_0.01")])
+                      mensagem <- get_mensagem(round(dados[nrow(dados), c("Retorno", "VaR_0.01", "SE_0.01")],5))
                       arquivo <- file.path("dados/previsao.csv")
                       msg <- gm_mime() |> gm_from(meu_email) |>
                              gm_to(seu_email) |> gm_subject("Trabalho Final de Séries Temporais") |>
