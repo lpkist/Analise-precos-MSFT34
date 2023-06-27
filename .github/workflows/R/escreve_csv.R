@@ -17,11 +17,12 @@ get_data = function(tickers = "MSFT34.SA", first_date = "2013-01-01",
 }
 dados <- get_data()
 
-spec <- ugarchspec(mean.model = list(armaOrder = c(1,0),
-                                    include.mean = FALSE),
-                  variance.model = list(model = 'sGARCH', garchOrder = c(1,2)),
-                  distribution = "std")
-modelo <-  ugarchfit(spec, scale(dados$ret_adjusted, T, T), solver = 'hybrid')
+spec <-  ugarchspec(mean.model = list(armaOrder = c(1,0),
+                                          include.mean = TRUE),
+                        variance.model = list(model = 'sGARCH',
+                                              garchOrder = c(1,2)),
+                        distribution.model = "std")
+modelo <-  ugarchfit(spec, dados$ret_adjusted, solver = 'hybrid')
 
 prev <- ugarchforecast(modelo, n.ahead = 1)
 alpha <- 0.01
